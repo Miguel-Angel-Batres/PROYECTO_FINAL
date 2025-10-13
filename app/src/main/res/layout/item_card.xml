@@ -9,33 +9,73 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
-        android:background="@drawable/shadow_border"
-        android:radius="35dp" />
+        android:background="@drawable/shadow_border" />
 
-    <!-- Card principal por encima -->
+    <!-- Card principal -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="35dp"
         app:strokeWidth="2dp"
-         app:strokeColor="@color/black"
-         android:layout_marginBottom="9dp"
+        app:strokeColor="@color/black"
+        android:layout_marginBottom="9dp"
         android:layout_marginRight="9dp"
-        android:background="@drawable/rounded_card"
-   >
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
+        <!-- Imagen de fondo -->
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"
-            android:clipToOutline="true" />
+          />
 
+        <!-- Bloque blanco en la parte superior -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:background="@color/white" />
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:gravity="center_vertical">
+
+            <!-- Texto a la izquierda -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Card Example Text"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/ultra" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subtitle Example"
+                    android:textColor="@color/gray"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/ultra" />
+            </LinearLayout>
+
+            <!-- Icono a la derecha -->
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_launcher_background"
+                android:scaleType="centerInside"
+                android:padding="10dp"
+               />
+        </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>

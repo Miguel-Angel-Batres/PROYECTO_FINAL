@@ -11,7 +11,7 @@ android:orientation="vertical">
     android:fontFamily="@font/ultra"
     android:paddingHorizontal="20dp"
     android:paddingVertical="20dp"
-    android:text="Welcome to Worbi"
+    android:text="@string/Welcome_to_worbi"
     android:textColor="@color/black"
     android:textSize="25sp" />
 
@@ -60,7 +60,7 @@ android:orientation="vertical">
         android:paddingHorizontal="20dp"
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
-        android:text="Let's read"
+        android:text="@string/lets_read"
         android:textColor="@color/black"
         android:textSize="20sp" />
     <Space
@@ -75,7 +75,7 @@ android:orientation="vertical">
         android:paddingHorizontal="20dp"
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
-        android:text="See all"
+        android:text="@string/see_all"
         android:textColor="#8A8A8A"
         android:textSize="15sp" />
 </LinearLayout>
@@ -100,7 +100,7 @@ android:orientation="vertical">
         android:paddingHorizontal="20dp"
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
-        android:text="Let's play"
+        android:text="@string/lets_play"
         android:textColor="@color/black"
         android:textSize="20sp" />
     <Space
@@ -115,7 +115,7 @@ android:orientation="vertical">
         android:paddingHorizontal="20dp"
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
-        android:text="See all"
+        android:text="@string/see_all"
         android:textColor="#8A8A8A"
         android:textSize="15sp" />
 </LinearLayout>
@@ -133,7 +133,7 @@ android:orientation="vertical">
         android:paddingHorizontal="20dp"
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
-        android:text="Let's learn"
+        android:text="@string/lets_learn"
         android:textColor="@color/black"
         android:textSize="20sp" />
     <Space
@@ -148,7 +148,7 @@ android:orientation="vertical">
         android:paddingHorizontal="20dp"
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
-        android:text="See all"
+        android:text="@string/see_all"
         android:textColor="#8A8A8A"
         android:textSize="15sp" />
 </LinearLayout>

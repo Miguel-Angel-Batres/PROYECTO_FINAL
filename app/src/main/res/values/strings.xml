@@ -1,5 +1,46 @@
 <resources>
     <string name="app_name">PROYECTO_FINAL</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Welcome_to_worbi">Welcome to Worbi</string>
+    <string name="lets_read">Let\'s Read</string>
+    <string name="lets_play">Let\'s Play</string>
+    <string name="lets_learn">Let\'s Learn</string>
+    <string name="see_all">See all</string>
+
+    <string name="card_cuento_1_title">La casa de los susurros</string>
+    <string name="card_cuento_1_subtitle">Un lugar donde nadie sale igual que entró.</string>
+
+    <string name="card_cuento_2_title">El bosque de la medianoche</string>
+    <string name="card_cuento_2_subtitle">Sus árboles esconden secretos que no debes descubrir.</string>
+
+    <string name="card_cuento_3_title">El espejo roto</string>
+    <string name="card_cuento_3_subtitle">Refleja más que tu propia imagen.</string>
+
+    <string name="card_cuento_4_title">El reloj sin horas</string>
+    <string name="card_cuento_4_subtitle">Cada campanada anuncia algo terrible.</string>
+
+    <string name="card_cuento_5_title">La sombra bajo la cama</string>
+    <string name="card_cuento_5_subtitle">Siempre está, incluso cuando no la ves.</string>
+
+    <string name="card_cuento_6_title">Alicia en el país de las maravillas</string>
+    <string name="card_cuento_6_subtitle">Un viaje a un mundo donde todo es posible.</string>
+
+    <string name="card_cuento_7_title">Caperucita Roja</string>
+    <string name="card_cuento_7_subtitle">Cuidado con lo que acecha entre los árboles.</string>
+
+    <string name="card_cuento_8_title">El gato negro</string>
+    <string name="card_cuento_8_subtitle">Cuando la culpa y el miedo se cruzan, nada termina bien.</string>
+
+    <string name="card_cuento_9_title">Drácula</string>
+    <string name="card_cuento_9_subtitle">El conde que nunca duerme y siempre acecha.</string>
+
+    <string name="card_cuento_10_title">Frankenstein</string>
+    <string name="card_cuento_10_subtitle">Cuando la ciencia juega con la vida, surgen monstruos.</string>
+
+    <!-- Cards de juegos -->
+    <string name="card_juego_1_title">Flashcards Practice</string>
+    <string name="card_juego_1_subtitle">Revisa y aprende palabras de forma divertida.</string>
+
+    <string name="card_juego_2_title">Memorama</string>
+    <string name="card_juego_2_subtitle">Pon a prueba tu memoria y agilidad visual.</string>
 </resources>

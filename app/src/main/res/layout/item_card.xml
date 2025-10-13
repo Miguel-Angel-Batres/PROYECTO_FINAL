@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="320dp"
+    android:layout_height="220dp"
+    android:padding="10dp">
+
+    <!-- Fondo negro desplazado, simulando la sombra -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shadow_border"
+        android:radius="35dp" />
+
+    <!-- Card principal por encima -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="35dp"
+        app:strokeWidth="2dp"
+         app:strokeColor="@color/black"
+         android:layout_marginBottom="9dp"
+        android:layout_marginRight="9dp"
+        android:background="@drawable/rounded_card"
+   >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            android:clipToOutline="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@color/white" />
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

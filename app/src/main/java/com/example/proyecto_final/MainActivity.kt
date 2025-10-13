@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -20,11 +21,25 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
-        var bottomnav : BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        var bottomnav: BottomNavigationView =
+            findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val menu = bottomnav.menu
-        menu.findItem(R.id.bottom_home).icon = ContextCompat.getDrawable(this,R.drawable.baseline_home_filled_24)
+        menu.findItem(R.id.bottom_home).icon =
+            ContextCompat.getDrawable(this, R.drawable.baseline_home_filled_24)
         bottomnav.itemIconTintList = null
         val orange = ColorStateList.valueOf(Color.argb(255, 255, 204, 128))
         bottomnav.itemActiveIndicatorColor = orange
+
+        bottomnav.setOnItemSelectedListener { menuItem ->
+            when (menuItem) {
+                R.id.bottom_home -> {
+                    replaceFragment()
+                }
+            }
+        }
+
+    }
+    private fun replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit()
     }
 }

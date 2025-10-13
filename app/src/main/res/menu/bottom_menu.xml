@@ -5,11 +5,11 @@
      android:title="Home"
      android:icon="@drawable/baseline_home_filled_24" />
     <item
-        android:id="@+id/bottom_search"
+        android:id="@+id/bottom_games"
         android:title="Games"
         android:icon="@drawable/baseline_play_circle_24"/>
     <item
-        android:id="@+id/bottom_favorite"
+        android:id="@+id/bottom_books"
         android:title="Books"
         android:icon="@drawable/baseline_menu_book_24"/>
     <item

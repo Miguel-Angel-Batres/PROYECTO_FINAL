@@ -30,11 +30,33 @@ class MainActivity : AppCompatActivity() {
         val orange = ColorStateList.valueOf(Color.argb(255, 255, 204, 128))
         bottomnav.itemActiveIndicatorColor = orange
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_container, HomeFragment())
+            .commit()
+
         bottomnav.setOnItemSelectedListener { menuItem ->
-            when (menuItem) {
+            when(menuItem.itemId) {
                 R.id.bottom_home -> {
-                    replaceFragment()
+                    replaceFragment(HomeFragment())
+                    true
                 }
+                R.id.bottom_games -> {
+                    replaceFragment(GamesFragment())
+                    true
+                }
+                R.id.bottom_books -> {
+                    replaceFragment(BooksFragment())
+                    true
+                }
+                R.id.bottom_lessons -> {
+                    replaceFragment(LessonsFragment())
+                    true
+                }
+                R.id.bottom_profile -> {
+                    replaceFragment(ProfileFragment())
+                    true
+                }
+                else -> false
             }
         }
 

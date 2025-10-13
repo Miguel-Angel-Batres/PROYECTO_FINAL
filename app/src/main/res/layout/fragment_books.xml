@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BooksFragment">
+    android:background="@color/bg_main"> <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="30dp"
+    android:paddingBottom="40dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ultra"
+        android:text="Book Explorer"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:layout_marginBottom="10dp" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose your next adventure from the list below."
+        android:textColor="@color/black" android:textSize="16sp"
+        android:alpha="0.7"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ultra"
+        android:text="Select a Book"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginBottom="8dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/shadow_searchbar"
+        android:paddingHorizontal="15dp">
+
+        <Spinner
+            android:id="@+id/book_selection_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overlapAnchor="false"
+            android:popupBackground="@color/white" android:spinnerMode="dropdown"
+           />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ultra"
+        android:text="Selected Book Details"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginBottom="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/shadow_searchbar"
+        android:layout_marginBottom="30dp">
+
+        <include layout="@layout/item_card"
+            android:id="@+id/selected_book_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/book_summary_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is a brief summary of the selected book. It explains the main plot points and why you should start reading it right away."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:alpha="0.8"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/open_book_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Start Reading Now"
+        android:textSize="18sp"
+        android:fontFamily="@font/ultra"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/bg_sec" android:background="@drawable/ic_launcher_background"
+        android:stateListAnimator="@null"
+        android:layout_gravity="center_horizontal"
+        />
+
+</LinearLayout>
+
+</ScrollView>

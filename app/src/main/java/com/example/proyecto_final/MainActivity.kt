@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(ProfileFragment())
                     true
                 }
+
                 else -> false
             }
         }

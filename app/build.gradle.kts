@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    implementation("com.github.yuyakaido:CardStackView:v2.3.4")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -45,4 +45,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 }

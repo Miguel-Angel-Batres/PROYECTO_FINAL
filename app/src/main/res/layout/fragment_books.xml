@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/ultra"
         android:text="Book Explorer"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="32sp"
         android:layout_marginBottom="10dp" />
 
@@ -21,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose your next adventure from the list below."
-        android:textColor="@color/black" android:textSize="16sp"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="16sp"
         android:alpha="0.7"
         android:layout_marginBottom="30dp" />
 
@@ -30,7 +31,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/ultra"
         android:text="Select a Book"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="20sp"
         android:layout_marginBottom="8dp" />
 
@@ -46,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overlapAnchor="false"
-            android:popupBackground="@color/white" android:spinnerMode="dropdown"
+            android:popupBackground="@color/colorBackground"
+            android:spinnerMode="dropdown"
            />
 
     </RelativeLayout>
@@ -57,7 +59,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/ultra"
         android:text="Selected Book Details"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="20sp"
         android:layout_marginBottom="15dp" />
 
@@ -81,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This is a brief summary of the selected book. It explains the main plot points and why you should start reading it right away."
-            android:textColor="@color/black"
+            android:textColor="@color/colorTextPrimary"
             android:textSize="14sp"
             android:alpha="0.8"
             android:layout_marginTop="10dp"/>
@@ -89,14 +91,15 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/open_book_button"
+        android:id="@+id/open_b2ook_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Start Reading Now"
         android:textSize="18sp"
         android:fontFamily="@font/ultra"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/bg_sec" android:background="@drawable/ic_launcher_background"
+        android:textColor="@color/colorTextPrimary"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/ic_launcher_background"
         android:stateListAnimator="@null"
         android:layout_gravity="center_horizontal"
         />

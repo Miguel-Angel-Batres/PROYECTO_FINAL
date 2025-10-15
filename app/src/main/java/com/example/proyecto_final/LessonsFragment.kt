@@ -1,10 +1,16 @@
 package com.example.proyecto_final
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +42,54 @@ class LessonsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_lessons, container, false)
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        // Definimos la solicitud de la fuente una sola vez
+        val request = FontRequest(
+            "com.google.android.gms.fonts", // Autoridad del proveedor de fuentes
+            "com.google.android.gms",       // Paquete del proveedor para verificación
+            "Ultra",                        // La consulta de la fuente que queremos
+            R.array.com_google_android_gms_fonts_certs // Certificados para verificar la firma
+        )
+
+        // --- FUNCIÓN RECURSIVA PARA APLICAR LA FUENTE ---
+        fun applyFontToAllTextViews(v: View, typeface: Typeface) {
+            // Si la vista actual es un TextView, le aplicamos la fuente.
+            if (v is TextView) {
+                v.typeface = typeface
+            }
+            // Si la vista actual es un contenedor de vistas (como LinearLayout, FrameLayout, etc.),
+            // recorremos sus hijos y llamamos a esta misma función para cada uno.
+            else if (v is ViewGroup) {
+                for (i in 0 until v.childCount) {
+                    applyFontToAllTextViews(v.getChildAt(i), typeface)
+                }
+            }
+        }
+
+        // Creamos un callback para manejar la respuesta
+        val callback = object : FontsContractCompat.FontRequestCallback() {
+            override fun onTypefaceRetrieved(typeface: Typeface) {
+                // Cuando la fuente se obtiene correctamente, iniciamos el recorrido
+                // desde la vista raíz del fragmento.
+                applyFontToAllTextViews(view, typeface)
+            }
+
+            override fun onTypefaceRequestFailed(reason: Int) {
+                // Opcional: Manejar el error si la fuente no se puede descargar.
+                // No es necesario hacer nada aquí si quieres que se use la fuente por defecto.
+            }
+        }
+
+        // Solicitamos la fuente
+        FontsContractCompat.requestFont(
+            requireContext(),
+            request,
+            callback,
+            Handler(Looper.getMainLooper())
+        )
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

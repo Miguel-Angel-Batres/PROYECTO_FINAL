@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         bottomnav.itemIconTintList = null
         val orange = ColorStateList.valueOf(Color.argb(255, 255, 204, 128))
         bottomnav.itemActiveIndicatorColor = orange
+
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_container, HomeFragment())

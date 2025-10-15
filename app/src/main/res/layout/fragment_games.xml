@@ -12,7 +12,7 @@
         android:paddingHorizontal="20dp"
         android:paddingVertical="20dp"
         android:text="@string/lets_play"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="25sp" />
     <include layout="@layout/item_game_card"/>
     <include layout="@layout/item_game_card"/>

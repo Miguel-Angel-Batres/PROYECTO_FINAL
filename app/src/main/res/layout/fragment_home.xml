@@ -5,15 +5,17 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="vertical">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fontFamily="@font/ultra"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="20dp"
-    android:text="@string/Welcome_to_worbi"
-    android:textColor="@color/black"
-    android:textSize="25sp" />
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/ultra"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
+        android:text="@string/Welcome_to_worbi"
+        android:textAppearance="@null"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="25sp" />
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -29,7 +31,7 @@ android:orientation="vertical">
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:hint="Search anything"
-        android:textColor="#000000"
+        android:textColor="@color/colorTextSecondary"
         android:textColorHint="#888888"
         android:singleLine="true"
         android:inputType="text" />
@@ -61,7 +63,7 @@ android:orientation="vertical">
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
         android:text="@string/lets_read"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="20sp" />
     <Space
         android:layout_width="0dp"
@@ -101,7 +103,7 @@ android:orientation="vertical">
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
         android:text="@string/lets_play"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="20sp" />
     <Space
         android:layout_width="0dp"
@@ -134,7 +136,7 @@ android:orientation="vertical">
         android:paddingBottom="5dp"
         android:paddingTop="10dp"
         android:text="@string/lets_learn"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="20sp" />
     <Space
         android:layout_width="0dp"

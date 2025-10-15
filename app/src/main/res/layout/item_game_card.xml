@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         app:cardCornerRadius="35dp"
         app:strokeWidth="2dp"
-        app:strokeColor="@color/black"
+        app:strokeColor="@color/colorTextPrimary"
         android:layout_marginBottom="9dp"
         android:layout_marginRight="9dp"
         android:clipChildren="false"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:orientation="horizontal"
-                android:background="@color/white"
+                android:background="@color/colorSurface"
                 android:padding="10dp"
                 android:gravity="center_vertical">
 
@@ -52,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Card Example Text"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorTextPrimary"
                         android:textSize="20sp"
                         android:fontFamily="@font/ultra"
                         android:layout_gravity="center"/>
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Subtitle Example"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/colorTextSecondary"
                         android:textSize="15sp"
                         android:fontFamily="@font/ultra" />
                 </LinearLayout>

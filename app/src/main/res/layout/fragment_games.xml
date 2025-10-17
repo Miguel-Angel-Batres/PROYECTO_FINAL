@@ -14,9 +14,9 @@
         android:text="@string/lets_play"
         android:textColor="@color/colorTextPrimary"
         android:textSize="25sp" />
-    <include layout="@layout/item_game_card"/>
+    <include android:id="@+id/cards" layout="@layout/item_game_card"/>
     <include layout="@layout/item_game_card"/>
 
-    <include layout="@layout/item_game_card"/>
+    <include android:id="@+id/memory" layout="@layout/item_game_card"/>
 
 </LinearLayout>

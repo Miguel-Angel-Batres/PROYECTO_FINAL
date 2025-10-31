@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LessonsFragment"
-    android:orientation="vertical">
-
+    android:id="@+id/scrollview"
+   >
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,6 +70,7 @@
     <include layout="@layout/item_lesson"/>
 
     <TextView
+        android:id="@+id/Verbs_and_tenses"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -83,6 +88,7 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <TextView
+        android:id="@+id/Nouns_articles_adjectives"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -98,6 +104,7 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <TextView
+        android:id="@+id/Pronouns_and_possessives"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -113,6 +120,7 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <TextView
+        android:id="@+id/Prepositions"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -128,6 +136,7 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <TextView
+        android:id="@+id/Compound_sentences_connectors"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -143,6 +152,7 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <TextView
+        android:id="@+id/Questions_and_negations"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -158,6 +168,7 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <TextView
+        android:id="@+id/Modal_verbs"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -173,6 +184,7 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <TextView
+        android:id="@+id/Common_phrases_sentence_patterns"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fontFamily="@font/ultra"
@@ -187,5 +199,5 @@
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
     <include layout="@layout/item_lesson"/>
-
-</LinearLayout>
+ </LinearLayout>
+</ScrollView>

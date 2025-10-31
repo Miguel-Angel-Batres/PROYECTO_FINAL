@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
@@ -44,6 +45,16 @@ class LessonsFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val scrollTargetId = arguments?.getInt("scrollTargetId")
+        if (scrollTargetId != null) {
+            val scrollView = view.findViewById<ScrollView>(R.id.scrollview)
+            val targetView = view.findViewById<View>(scrollTargetId)
+
+            scrollView.post {
+                scrollView.smoothScrollTo(0, targetView.top)
+            }
+        }
 
         // Definimos la solicitud de la fuente una sola vez
         val request = FontRequest(

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -14,9 +14,26 @@
         android:text="@string/lets_play"
         android:textColor="@color/colorTextPrimary"
         android:textSize="25sp" />
-    <include android:id="@+id/cards" layout="@layout/item_game_card"/>
-    <include layout="@layout/item_game_card"/>
 
-    <include android:id="@+id/memory" layout="@layout/item_game_card"/>
+    <com.example.proyecto_final.GamePanel
+        android:id="@+id/gamecard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:game_title="Flashcards Practice"
+        app:game_subtitle="Pon a prueba tu conocimiento"
+        app:game_image="@drawable/ic_launcher_background"
+        />
+    <com.example.proyecto_final.GamePanel
+        android:id="@+id/memorycard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:game_title="Memory Practice"
+        app:game_subtitle="Pon a prueba tus reflejos"
+        app:game_image="@drawable/ic_launcher_background"
+        />
+
+
+
+
 
 </LinearLayout>

@@ -7,4 +7,6 @@
     <color name="colorTextPrimary">#F8EBD3</color>
     <color name="colorTextSecondary">#D9A577</color>
     <color name="colorBorder">#A74E2A</color>
+    <color name="colorCorrect">#5A8B43</color>
+    <color name="colorError">#D5421A</color>
 </resources>

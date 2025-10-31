@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GameCard">
+        <attr name="game_title" format="string" />
+        <attr name="game_subtitle" format="string" />
+        <attr name="game_image" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="Card">
+        <attr name="card_title" format="string" />
+        <attr name="card_subtitle" format="string" />
+        <attr name="card_image" format="reference" />
+        <attr name="card_icon_image" format="reference" />
+
+    </declare-styleable>
+</resources>

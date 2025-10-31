@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
@@ -42,8 +44,14 @@ class BooksFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_books, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val spinner = view.findViewById<Spinner>(R.id.book_selection_spinner)
+        val bookSummary = view.findViewById<TextView>(R.id.book_summary_text)
+        val button = view.findViewById<Button>(R.id.open_book_button)
+        val bookCard = view.findViewById<View>(R.id.selected_book_card)
+
 
         // Definimos la solicitud de la fuente una sola vez
         val request = FontRequest(

@@ -91,7 +91,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/open_b2ook_button"
+        android:id="@+id/open_book_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Start Reading Now"

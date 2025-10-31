@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         bottomnav.itemIconTintList = null
         val orange = ColorStateList.valueOf(Color.argb(255, 255, 204, 128))
         bottomnav.itemActiveIndicatorColor = orange
+
+      //  AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
 
         supportFragmentManager.beginTransaction()
@@ -64,7 +67,32 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    fun replaceFragmentFromFragment(fragment: Fragment, menuItemId: Int) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_container, fragment)
+            .commit()
+        val bottomnav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomnav.selectedItemId = menuItemId
+    }
+    fun replaceFragmentFromFragmentNoBarChange(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_container, fragment)
+            .commit()
+    }
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.frame_container,fragment).commit()
     }
+    fun replaceFragmentinID(fragment: Fragment, scrollTargetId: Int? = null, menuItemId: Int) {
+        val bundle = Bundle()
+        if (scrollTargetId != null) bundle.putInt("scrollTargetId", scrollTargetId)
+        fragment.arguments = bundle
+        val bottomnav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomnav.selectedItemId = menuItemId
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_container, fragment)
+            .addToBackStack(null)
+            .commit()
+
+    }
+
 }

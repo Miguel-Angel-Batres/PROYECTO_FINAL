@@ -27,18 +27,24 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
+val readium_version = "3.1.2"
 dependencies {
     implementation("com.github.yuyakaido:CardStackView:v2.3.4")
     //implementation("com.squareup.okhttp3:okhttp:5.3.0")
-    //implementation("com.github.bumptech.glide:glide:4.16.0")
+    //implementation("com.android.volley:volley:1.2.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("nl.siegmann.epublib:epublib-core:3.1") {
+        exclude(group = "xmlpull", module = "xmlpull")
+        exclude(group = "net.sf.kxml", module = "kxml2")
+    }
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

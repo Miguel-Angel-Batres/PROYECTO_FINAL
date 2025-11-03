@@ -8,11 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
+import com.bumptech.glide.Glide
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,9 +54,122 @@ class BooksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val spinner = view.findViewById<Spinner>(R.id.book_selection_spinner)
-        val bookSummary = view.findViewById<TextView>(R.id.book_summary_text)
-        val button = view.findViewById<Button>(R.id.open_book_button)
-        val bookCard = view.findViewById<View>(R.id.selected_book_card)
+
+        val bookcard = view.findViewById<View>(R.id.selected_book_card)
+
+        val bookImage = bookcard.findViewById<ImageView>(R.id.game_img)
+        val bookTitle = view.findViewById<TextView>(R.id.game_title)
+        val bookSubtitle = view.findViewById<TextView>(R.id.game_subtitle)
+
+        val openButton = view.findViewById<Button>(R.id.open_book_button)
+
+        val books = listOf(
+            Book(
+                title = "Pride and Prejudice",
+                author = "Jane Austen",
+                year = "1813",
+                summary = "A classic novel about love and social standing in 19th century England.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/1342/1342-h/1342-h.htm"
+            ),
+            Book(
+                title = "Alice's Adventures in Wonderland",
+                author = "Lewis Carroll",
+                year = "1865",
+                summary = "Alice falls through a rabbit hole into a fantastical world.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/11/11-h/11-h.htm"
+            ),
+            Book(
+                title = "The Adventures of Sherlock Holmes",
+                author = "Arthur Conan Doyle",
+                year = "1892",
+                summary = "Detective Sherlock Holmes solves mysteries in Victorian London.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/1661/1661-h/1661-h.htm"
+            ),
+            Book(
+                title = "Frankenstein",
+                author = "Mary Shelley",
+                year = "1818",
+                summary = "A scientist creates a living being from dead matter, leading to tragic consequences.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/84/84-h/84-h.htm"
+            ),
+            Book(
+                title = "Dracula",
+                author = "Bram Stoker",
+                year = "1897",
+                summary = "The classic tale of Count Dracula's attempt to move from Transylvania to England.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/345/pg345.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/345/345-h/345-h.htm"
+            ),
+            Book(
+                title = "The Picture of Dorian Gray",
+                author = "Oscar Wilde",
+                year = "1890",
+                summary = "A young man remains eternally young while his portrait ages and reflects his sins.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/174/pg174.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/174/174-h/174-h.htm"
+            ),
+            Book(
+                title = "Moby Dick",
+                author = "Herman Melville",
+                year = "1851",
+                summary = "Captain Ahab obsessively hunts the giant white whale, Moby Dick.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/2701/pg2701.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/2701/2701-h/2701-h.htm"
+            ),
+            Book(
+                title = "The War of the Worlds",
+                author = "H. G. Wells",
+                year = "1898",
+                summary = "Martians invade Earth in this classic science fiction novel.",
+                imageUrl = "https://www.gutenberg.org/cache/epub/36/pg36.cover.medium.jpg",
+                url = "https://www.gutenberg.org/files/36/36-h/36-h.htm"
+            )
+        )
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.spinner_item,
+            books.map { it.title }
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val book = books[position]
+                bookTitle.text = book.title
+                bookSubtitle.text = book.summary
+
+                Glide.with(this@BooksFragment)
+                    .load(book.imageUrl)
+                    .into(bookImage)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        openButton.setOnClickListener {
+            val selectedBook = books[spinner.selectedItemPosition]
+
+            val readFragment = ReadFragment()
+            val bundle = Bundle()
+            bundle.putString("bookUrl", selectedBook.url)
+            bundle.putString("bookTitle", selectedBook.title)
+
+            bundle.putString("bookepub","file:///android_asset/mobydick.epub")
+
+            readFragment.arguments = bundle
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_container, readFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
 
         // Definimos la solicitud de la fuente una sola vez

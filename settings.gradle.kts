@@ -7,9 +7,11 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
-        maven ("https://jitpack.io")
         mavenCentral()
         gradlePluginPortal()
+        maven{url = uri("https://github.com/psiegman/mvn-repo/raw/master/releases")}
+        maven { url = uri("https://jitpack.io") }
+        flatDir { dirs("libs") }
     }
 }
 dependencyResolutionManagement {
@@ -17,10 +19,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://github.com/psiegman/mvn-repo/raw/master/releases")}
+        maven { url = uri("https://repo.spring.io/libs-release/") }
         maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "PROYECTO_FINAL"
 include(":app")
- 
+

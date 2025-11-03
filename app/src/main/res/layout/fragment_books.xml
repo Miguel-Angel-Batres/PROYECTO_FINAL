@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
     android:paddingTop="30dp"
@@ -63,32 +63,14 @@
         android:textSize="20sp"
         android:layout_marginBottom="15dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@drawable/shadow_searchbar"
-        android:layout_marginBottom="30dp">
-
-        <include layout="@layout/item_card"
+        <include layout="@layout/item_game_card"
             android:id="@+id/selected_book_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+
             />
 
-        <TextView
-            android:id="@+id/book_summary_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="This is a brief summary of the selected book. It explains the main plot points and why you should start reading it right away."
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="14sp"
-            android:alpha="0.8"
-            android:layout_marginTop="10dp"/>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/open_book_button"
@@ -99,8 +81,6 @@
         android:fontFamily="@font/ultra"
         android:textColor="@color/colorTextPrimary"
         android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/ic_launcher_background"
-        android:stateListAnimator="@null"
         android:layout_gravity="center_horizontal"
         />
 

@@ -20,11 +20,10 @@ Este documento sirve como guía y lista de verificación para asegurar que la ap
 
 ## 🎮 2. Tipo de Software Educativo
 
-Seleccione el tipo o combinación aplicada al proyecto:
 
 * [x] Software ejercitador
 * [x] Software tutorial
-* [ ] Simulación
+* **NO APLICA** Simulación
 * [x] Juego educativo
 
 ---
@@ -103,10 +102,10 @@ Seleccione el tipo o combinación aplicada al proyecto:
 
 ## 📚 6. Etapas del Proceso de Enseñanza-Aprendizaje
 
-* [ ] Etapa de exploración.
-* [ ] Etapa de construcción/descubrimiento.
-* [ ] Etapa de estructuración del conocimiento.
-* [ ] Etapa de aplicación.
+* [x] Etapa de exploración.
+* [x] Etapa de construcción/descubrimiento.
+* [x] Etapa de estructuración del conocimiento.
+* [x] Etapa de aplicación.
 
 ---
 

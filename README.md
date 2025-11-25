@@ -22,10 +22,10 @@ Este documento sirve como guía y lista de verificación para asegurar que la ap
 
 Seleccione el tipo o combinación aplicada al proyecto:
 
-* [ ] Software ejercitador
-* [ ] Software tutorial
+* [✔] Software ejercitador
+* [✔] Software tutorial
 * [ ] Simulación
-* [ ] Juego educativo
+* [✔] Juego educativo
 
 ---
 

@@ -14,7 +14,7 @@ Este documento sirve como guía y lista de verificación para asegurar que la ap
 * [x] Motiva al usuario con elementos visuales y lúdicos.
 * [ ] Evalúa conocimientos (cuestionarios, puntuaciones, progreso).
 * [x] Corrige errores de forma explícita o implícita.
-**NO APLICA** Proporciona simulaciones (si aplica). 
+* **NO APLICA** Proporciona simulaciones (si aplica). 
 
 ---
 
@@ -23,7 +23,7 @@ Este documento sirve como guía y lista de verificación para asegurar que la ap
 
 * [x] Software ejercitador
 * [x] Software tutorial
-**NO APLICA** Simulación
+* **NO APLICA** Simulación
 * [x] Juego educativo
 
 ---
@@ -136,7 +136,7 @@ Este documento sirve como guía y lista de verificación para asegurar que la ap
 * [ ] **Uso obligatorio de gráficos en Android.**
 * [ ] Uso de sensores para interacción.
 * [ ] Guardado de progreso en almacenamiento local.
-**NO APLICA** (Si aplica) Implementación de servidor para multijugador.
+* **NO APLICA** (Si aplica) Implementación de servidor para multijugador.
 
 ---
 

@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view =  inflater.inflate(R.layout.fragment_home, container, false)
-         recyclerbooks = view.findViewById<RecyclerView>(R.id.recyclerBooks)
+        recyclerbooks = view.findViewById<RecyclerView>(R.id.recyclerBooks)
         recyclergames = view.findViewById<RecyclerView>(R.id.recyclerGames)
         recyclerlessons = view.findViewById<RecyclerView>(R.id.recyclerLessons)
         var see_games: TextView = view.findViewById<TextView>(R.id.see_games)
@@ -64,80 +64,64 @@ class HomeFragment : Fragment() {
         }
 
         val games = listOf(
-            CardData("game_flashcards", "Flashcards", "Aprende rápido", R.drawable.ic_launcher_background, R.drawable.ic_launcher_background),
-            CardData("game_memorama", "Memorama", "Entrena tu memoria", R.drawable.ic_launcher_background, R.drawable.ic_launcher_background),
+            CardData("game_flashcards", "Flashcards", "Aprende rápido", R.drawable.flashcards, R.drawable.flashcard_icon),
+            CardData("game_memorama", "Memorama", "Entrena tu memoria", R.drawable.memory_game, R.drawable.memory_icon),
         )
-        val books = listOf(
-            CardData(
-                id = "book_whispers",
-                title = "La casa de los susurros",
-                subtitle = "Un lugar donde nadie sale igual que entró.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+        val books = listOf(CardData(
+                id = "pride_and_prejudice",
+                title = "Pride and Prejudice",
+                subtitle = "Jane Austen",
+                image = R.drawable.pride_and_prejudice,
+                icon = R.drawable.romance
             ),
             CardData(
-                id = "book_midnight_forest",
-                title = "El bosque de la medianoche",
-                subtitle = "Sus árboles esconden secretos que no debes descubrir.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-
+                id = "alice_adventures_in_wonderland",
+                title = "Alice's Adventures in Wonderland",
+                subtitle = "Lewis Carroll",
+                image = R.drawable.alice_adventures_in_wonderland,
+                icon = R.drawable.ciencia_ficcion
             ),
             CardData(
-                id = "book_broken_mirror",
-                title = "El espejo roto",
-                subtitle = "Refleja más que tu propia imagen.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                id = "the_adventures_of_sherlock_holmes",
+                title = "The Adventures of Sherlock Holmes",
+                subtitle = "Arthur Conan Doyle",
+                image = R.drawable.sherlock_holmes,
+                icon = R.drawable.misterio
             ),
             CardData(
-                id = "book_hourless_clock",
-                title = "El reloj sin horas",
-                subtitle = "Cada campanada anuncia algo terrible.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            ),
-            CardData(
-                id = "book_shadow_under_bed",
-                title = "La sombra bajo la cama",
-                subtitle = "Siempre está, incluso cuando no la ves.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            ),
-            CardData(
-                id = "book_alice_wonderland",
-                title = "Alicia en el país de las maravillas",
-                subtitle = "Un viaje a un mundo donde todo es posible.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            ),
-            CardData(
-                id = "book_red_riding_hood",
-                title = "Caperucita Roja",
-                subtitle = "Cuidado con lo que acecha entre los árboles.",
-                image= R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            ),
-            CardData(
-                id = "book_black_cat",
-                title = "El gato negro",
-                subtitle = "Cuando la culpa y el miedo se cruzan, nada termina bien.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            ),
-            CardData(
-                id = "book_dracula",
-                title = "Drácula",
-                subtitle = "El conde que nunca duerme y siempre acecha.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            ),
-            CardData(
-                id = "book_frankenstein",
+                id = "frankestein",
                 title = "Frankenstein",
-                subtitle = "Cuando la ciencia juega con la vida, surgen monstruos.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                subtitle = "Mary Shelley",
+                image = R.drawable.frankestein,
+                icon = R.drawable.horror
+            ),
+            CardData(
+                id = "dracula",
+                title = "Dracula",
+                subtitle = "Bram Stoker",
+                image = R.drawable.dracula,
+                icon = R.drawable.horror
+            ),
+            CardData(
+                id = "the_picture_of_dorian_gray",
+                title = "The Picture of Dorian Gray",
+                subtitle = "Oscar Wilde",
+                image = R.drawable.dorian_gray,
+                icon = R.drawable.misterio
+            ),
+            CardData(
+                id = "moby_dick",
+                title = "Moby Dick",
+                subtitle = "Herman Melville",
+                image = R.drawable.moby_dick,
+                icon = R.drawable.misterio
+            ),
+            CardData(
+                id = "the_war_of_the_worlds",
+                title = "The War of the Worlds",
+                subtitle = "H. G. Wells",
+                image = R.drawable.the_war_of_the_world,
+                icon = R.drawable.ciencia_ficcion
             )
         )
         val lessons = listOf(
@@ -145,58 +129,44 @@ class HomeFragment : Fragment() {
                 id = "lesson_verbs_tenses",
                 title = "Verbs and Tenses",
                 subtitle = "Aprende tiempos verbales y cómo usarlos correctamente.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                image = R.drawable.zorro1,
+                icon = R.drawable.tiempo
             ),
             CardData(
                 id = "lesson_nouns_articles",
                 title = "Nouns, Articles and Adjectives",
                 subtitle = "Domina las bases de la gramática en inglés.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                image = R.drawable.zorro2,
+                icon = R.drawable.articles
             ),
             CardData(
                 id = "lesson_pronouns_possessives",
                 title = "Pronouns and Possessives",
                 subtitle = "Aprende a usar correctamente los pronombres y posesivos.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                image = R.drawable.zorro3,
+                icon = R.drawable.noun
             ),
             CardData(
                 id = "lesson_prepositions",
                 title = "Prepositions",
                 subtitle = "Descubre cómo las preposiciones cambian el sentido de las oraciones.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                image = R.drawable.zorro4,
+                icon = R.drawable.ubicacion
             ),
             CardData(
                 id = "lesson_compound_sentences",
                 title = "Compound Sentences and Connectors",
                 subtitle = "Conecta ideas con frases complejas y conectores.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                image = R.drawable.zorro5,
+                icon = R.drawable.cadena
             ),
             CardData(
                 id = "lesson_questions_negations",
                 title = "Questions and Negations",
                 subtitle = "Construye preguntas y oraciones negativas fácilmente.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
+                image = R.drawable.zorro6,
+                icon = R.drawable.question
             ),
-            CardData(
-                id = "lesson_modal_verbs",
-                title = "Modal Verbs",
-                subtitle = "Expresa posibilidad, obligación o permiso con los modales.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            ),
-            CardData(
-                id = "lesson_common_phrases",
-                title = "Common Phrases and Sentence Patterns",
-                subtitle = "Aprende expresiones comunes y estructuras útiles.",
-                image = R.drawable.ic_launcher_background,
-                icon = R.drawable.ic_launcher_background
-            )
         )
 
         recyclergames.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -231,11 +201,8 @@ class HomeFragment : Fragment() {
                 "lesson_prepositions" -> (requireActivity() as MainActivity).replaceFragmentinID(LessonsFragment(),R.id.Prepositions, R.id.bottom_lessons)
                 "lesson_compound_sentences" -> (requireActivity() as MainActivity).replaceFragmentinID(LessonsFragment(),R.id.Compound_sentences_connectors, R.id.bottom_lessons)
                 "lesson_questions_negations" -> (requireActivity() as MainActivity).replaceFragmentinID(LessonsFragment(),R.id.Questions_and_negations, R.id.bottom_lessons)
-                "lesson_modal_verbs" -> (requireActivity() as MainActivity).replaceFragmentinID(LessonsFragment(),R.id.Modal_verbs, R.id.bottom_lessons)
-                "lesson_common_phrases" -> (requireActivity() as MainActivity).replaceFragmentinID(LessonsFragment(),R.id.Common_phrases_sentence_patterns, R.id.bottom_lessons)
             }
         }
-
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

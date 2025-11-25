@@ -6,38 +6,76 @@
 <!--        android:gravity="center"-->
 <!--        android:orientation="vertical"-->
 <!--     >-->
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="350dp"
-android:layout_margin="50dp"
-android:background="@android:color/holo_blue_light"
-app:cardCornerRadius="16dp"
-app:cardElevation="8dp">
-
-<LinearLayout
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="350dp"
+    android:layout_margin="50dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
 
-    <ImageView
-        android:id="@+id/cardImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/cardTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card Title"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/ultra"
-        android:gravity="center"/>
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/frontCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/colorSurface">
+
+            <TextView
+                android:id="@+id/cardTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Card Title"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="20sp"
+                android:fontFamily="@font/ultra"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/backCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/colorSurface"
+            android:visibility="gone"
+
+            >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/cardBackImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background"
+                    android:alpha="0.4" />
+                <TextView
+                    android:id="@+id/cardBackText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Traducción o información"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/ultra"
+                    android:gravity="center"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </FrameLayout>
 </androidx.cardview.widget.CardView>
+
 
 
 

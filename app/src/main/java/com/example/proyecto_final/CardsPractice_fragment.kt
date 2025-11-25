@@ -54,11 +54,25 @@ class CardsPractice_fragment : Fragment() {
         val textocorrectos = view.findViewById<TextView>(R.id.textoCorrectos)
         val textoincorrectos = view.findViewById<TextView>(R.id.textoIncorrectos)
 
-        progreso.text = "1/100"
 
-        val listaDeDatos = MutableList(50) { i ->
-            GameCard("Palabra ${i + 1}", R.drawable.ic_launcher_background)
+        var dbHelper = BDhelper(requireContext())
+        var db = dbHelper.readableDatabase
+
+
+
+        progreso.text = "1/100"
+        val cursor = db.rawQuery("SELECT palabra,traduccion FROM Palabras", null)
+
+        val listaDeDatos = mutableListOf<GameCard>()
+        if (cursor.moveToFirst()) {
+            do {
+                val palabra = cursor.getString(0)
+                val traduccion = cursor.getString(1)
+                val imageRes = R.drawable.ic_launcher_background // por defecto
+                listaDeDatos.add(GameCard(palabra,traduccion,false,false))
+            } while (cursor.moveToNext())
         }
+        cursor.close()
         val listaCorrectos : MutableList<GameCard> = mutableListOf()
         val listaIncorrectos : MutableList<GameCard> = mutableListOf()
 
@@ -95,13 +109,26 @@ class CardsPractice_fragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                // no movemos las cartas verticalmente
                 return false
             }
+            override fun getSwipeDirs(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ): Int {
+                val position = viewHolder.adapterPosition
+                val item = listaDeDatos.get(position)
+                println(item.word)
+                println(item.volteada)
+
+                return if (item.volteada) 0 else super.getSwipeDirs(recyclerView, viewHolder)
+            }
+
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                val position = viewHolder.adapterPosition
-//                listaDeDatos.removeAt(position)
-//                adapter.notifyItemRemoved(position)
+    //           val position = viewHolder.adapterPosition
+    //           listaDeDatos.removeAt(position)
+    //           adapter.notifyItemRemoved(position)
+
+
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
                         listaIncorrectos.add(listaDeDatos[viewHolder.adapterPosition])

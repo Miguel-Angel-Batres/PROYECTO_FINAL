@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.provider.FontRequest
@@ -46,6 +47,12 @@ class GamesFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_games, container, false)
         var gamecard = view.findViewById<GamePanel>(R.id.gamecard)
         var gamememory = view.findViewById<GamePanel>(R.id.memorycard)
+
+        var fondogamecard = gamecard.findViewById<ImageView>(R.id.game_img)
+        var fondomemory = gamememory.findViewById<ImageView>(R.id.game_img)
+        fondogamecard.setImageResource(R.drawable.flashcards_zorro)
+        fondomemory.setImageResource(R.drawable.zorro_memory)
+
         gamecard.setOnClickListener {
             (requireActivity() as MainActivity).replaceFragmentFromFragmentNoBarChange(CardsPractice_fragment())
         }

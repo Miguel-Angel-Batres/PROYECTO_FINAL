@@ -65,9 +65,11 @@
         android:textAlignment="center"
         android:gravity="center"
          />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
+   <LinearLayout
+       android:id="@+id/progress_layout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"/>
 
     <TextView
         android:id="@+id/Verbs_and_tenses"
@@ -84,9 +86,10 @@
         android:gravity="center"
 
         />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion1_1"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion1_2"/>
     <TextView
         android:id="@+id/Nouns_articles_adjectives"
         android:layout_width="match_parent"
@@ -100,9 +103,10 @@
         android:background="@drawable/lesson_topic_background"
         android:gravity="center"
         />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion2_1"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion2_2"/>
     <TextView
         android:id="@+id/Pronouns_and_possessives"
         android:layout_width="match_parent"
@@ -116,9 +120,10 @@
         android:background="@drawable/lesson_topic_background"
         android:gravity="center"
         />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion3_1"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion3_2"/>
     <TextView
         android:id="@+id/Prepositions"
         android:layout_width="match_parent"
@@ -132,9 +137,10 @@
         android:background="@drawable/lesson_topic_background"
         android:gravity="center"
         />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion4_1"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion4_2"/>
     <TextView
         android:id="@+id/Compound_sentences_connectors"
         android:layout_width="match_parent"
@@ -148,9 +154,10 @@
         android:background="@drawable/lesson_topic_background"
         android:gravity="center"
         />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion5_1"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion5_2"/>
     <TextView
         android:id="@+id/Questions_and_negations"
         android:layout_width="match_parent"
@@ -164,40 +171,10 @@
         android:background="@drawable/lesson_topic_background"
         android:gravity="center"
         />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <TextView
-        android:id="@+id/Modal_verbs"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:fontFamily="@font/ultra"
-        android:paddingLeft="30dp"
-        android:text="Modal Verbs"
-        android:textSize="25dp"
-        android:textColor="@color/colorTextPrimary"
-        android:padding="20dp"
-        android:background="@drawable/lesson_topic_background"
-        android:gravity="center"
-        />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <TextView
-        android:id="@+id/Common_phrases_sentence_patterns"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:fontFamily="@font/ultra"
-        android:paddingLeft="30dp"
-        android:text="Common Phrases and Sentence Patterns"
-        android:textSize="25dp"
-        android:textColor="@color/colorTextPrimary"
-        android:padding="20dp"
-        android:background="@drawable/lesson_topic_background"
-        android:gravity="center"
-        />
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
-    <include layout="@layout/item_lesson"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion6_1"/>
+    <include layout="@layout/item_lesson"
+        android:id="@+id/leccion6_2"/>
+
  </LinearLayout>
 </ScrollView>

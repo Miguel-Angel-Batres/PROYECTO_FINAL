@@ -45,7 +45,6 @@ dependencies {
         exclude(group = "xmlpull", module = "xmlpull")
         exclude(group = "net.sf.kxml", module = "kxml2")
     }
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

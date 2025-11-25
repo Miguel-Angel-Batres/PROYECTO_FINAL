@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.provider.FontRequest
@@ -41,20 +42,54 @@ class LessonsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lessons, container, false)
+        var view =  inflater.inflate(R.layout.fragment_lessons, container, false)
+
+        val lista_views = listOf<View>(
+            view.findViewById(R.id.leccion1_1),
+            view.findViewById(R.id.leccion1_2),
+            view.findViewById(R.id.leccion2_1),
+            view.findViewById(R.id.leccion2_2),
+            view.findViewById(R.id.leccion3_1),
+            view.findViewById(R.id.leccion3_2),
+            view.findViewById(R.id.leccion4_1),
+            view.findViewById(R.id.leccion4_2),
+            view.findViewById(R.id.leccion5_1),
+            view.findViewById(R.id.leccion5_2),
+            view.findViewById(R.id.leccion6_1),
+            view.findViewById(R.id.leccion6_2)
+        )
+
+        var dbHelper = BDhelper(requireContext())
+        var db = dbHelper.readableDatabase
+
+        var lecciones = dbHelper.getLecciones(db)
+
+
+        lecciones.forEachIndexed { index, leccion ->
+            lista_views[index].findViewById<TextView>(R.id.lesson_title).text = leccion.nombre
+            lista_views[index].findViewById<TextView>(R.id.lesson_subtitle).text = leccion.descripcion
+            lista_views[index].findViewById<ImageView>(R.id.lesson_image).setImageResource(leccion.imagen)
+            lista_views[index].setOnClickListener {
+                val bundle = Bundle()
+                // pasar titulo de la leccion
+                bundle.putString("id_leccion",leccion.id.toString())
+                // comenzar fragmento de lecciones
+                val fragment = LessonsPracticeFragment()
+                fragment.arguments = bundle
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+
+
+        return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val scrollTargetId = arguments?.getInt("scrollTargetId")
-        if (scrollTargetId != null) {
-            val scrollView = view.findViewById<ScrollView>(R.id.scrollview)
-            val targetView = view.findViewById<View>(scrollTargetId)
-
-            scrollView.post {
-                scrollView.smoothScrollTo(0, targetView.top)
-            }
-        }
 
         // Definimos la solicitud de la fuente una sola vez
         val request = FontRequest(

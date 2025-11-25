@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -54,7 +55,12 @@ class ReadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         webView = view.findViewById<WebView>(R.id.webview)
-        loadEpub("mobydick.epub")
+        val book = arguments?.getString("bookepub")
+        val bookepub = book + ".epub"
+        if (bookepub != null) {
+            loadEpub(bookepub)
+        }
+
     }
 
     private fun loadEpub(fileName: String) {
@@ -62,14 +68,33 @@ class ReadFragment : Fragment() {
             val epubInputStream = requireContext().assets.open(fileName)
             val book = EpubReader().readEpub(epubInputStream)
 
+            //  creamos carpeta temporal
+            val cacheDir = File(requireContext().cacheDir, "epubTemp")
+            if (!cacheDir.exists()) cacheDir.mkdirs()
+
+            //  extraemos recursos del EPUB (HTML + imágenes)
+            for (resource in book.resources.all) {
+                val outFile = File(cacheDir, resource.href)
+                outFile.parentFile?.mkdirs()
+                outFile.writeBytes(resource.data)
+            }
+
+            // cargamos el contenido principal (normalmente los capítulos)
             val htmlBuilder = StringBuilder()
             for (resource in book.contents) {
                 val chapterText = String(resource.data)
                 htmlBuilder.append(chapterText)
             }
 
+            // ssamos la carpeta temporal como baseURL
+            val baseUrl = "file://${cacheDir.absolutePath}/"
+
+            webView.settings.allowFileAccess = true
+            webView.settings.allowFileAccessFromFileURLs = true
+            webView.settings.allowUniversalAccessFromFileURLs = true
+
             webView.loadDataWithBaseURL(
-                null,
+                baseUrl,
                 htmlBuilder.toString(),
                 "text/html",
                 "UTF-8",
@@ -80,6 +105,7 @@ class ReadFragment : Fragment() {
             e.printStackTrace()
         }
     }
+
 
 
 

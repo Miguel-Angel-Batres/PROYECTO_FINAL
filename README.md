@@ -8,13 +8,13 @@ Este documento sirve como guía y lista de verificación para asegurar que la ap
 
 ### Funciones del proceso de enseñanza-aprendizaje:
 
-* [ ] Proporciona información clara sobre el tema educativo.
-* [ ] Guía el aprendizaje mediante organización, relación de ideas y aplicación.
-* [ ] Desarrolla habilidades mediante ejercicios o actividades.
-* [ ] Motiva al usuario con elementos visuales y lúdicos.
+* [x] Proporciona información clara sobre el tema educativo.
+* [x] Guía el aprendizaje mediante organización, relación de ideas y aplicación.
+* [x] Desarrolla habilidades mediante ejercicios o actividades.
+* [x] Motiva al usuario con elementos visuales y lúdicos.
 * [ ] Evalúa conocimientos (cuestionarios, puntuaciones, progreso).
-* [ ] Corrige errores de forma explícita o implícita.
-* [ ] Proporciona simulaciones (si aplica).
+* [x] Corrige errores de forma explícita o implícita.
+* **NO APLICA** Proporciona simulaciones (si aplica). 
 
 ---
 
@@ -22,27 +22,27 @@ Este documento sirve como guía y lista de verificación para asegurar que la ap
 
 Seleccione el tipo o combinación aplicada al proyecto:
 
-* [✔] Software ejercitador
-* [✔] Software tutorial
+* [x] Software ejercitador
+* [x] Software tutorial
 * [ ] Simulación
-* [✔] Juego educativo
+* [x] Juego educativo
 
 ---
 
 ## 🆔 3. Identidad de la Aplicación
 
-* [ ] Título identificable, corto y claro.
-* [ ] Icono identificable, simple y memorable.
+* [x] Título identificable, corto y claro.
+* [x] Icono identificable, simple y memorable.
 
 ---
 
 ## 📊 4. Parámetros de Evaluación del Software Educativo
 
-* [ ] Se adapta al público objetivo.
-* [ ] Llena vacíos conceptuales.
-* [ ] Desarrolla habilidades y destrezas.
-* [ ] Fomenta participación activa.
-* [ ] Permite vivir experiencias difíciles de reproducir en la vida real.
+* [x] Se adapta al público objetivo.
+* [x] Llena vacíos conceptuales.
+* [x] Desarrolla habilidades y destrezas.
+* [x] Fomenta participación activa.
+* [x] Permite vivir experiencias difíciles de reproducir en la vida real.
 
 ---
 
@@ -51,40 +51,40 @@ Seleccione el tipo o combinación aplicada al proyecto:
 ### Facilidad de uso
 
 * [ ] Instalación simple, sin incompatibilidades.
-* [ ] Uso intuitivo, sin aprendizaje previo.
+* [x] Uso intuitivo, sin aprendizaje previo.
 
 ### Versatilidad
 
-* [ ] Flexible y adaptable a distintas situaciones educativas.
+* [x] Flexible y adaptable a distintas situaciones educativas.
 
 ### Calidad audiovisual
 
-* [ ] Gráficos adecuados y estéticos.
+* [x] Gráficos adecuados y estéticos.
 * [ ] Sonidos correctos y no invasivos.
 
 ### Calidad de contenidos
 
-* [ ] Rigor conceptual.
-* [ ] Lenguaje adecuado y no discriminatorio.
+* [x] Rigor conceptual.
+* [x] Lenguaje adecuado y no discriminatorio.
 
 ### Navegación
 
-* [ ] Intuitiva.
-* [ ] Claro indicador de ubicación y rutas.
+* [x] Intuitiva.
+* [x] Claro indicador de ubicación y rutas.
 
 ### Originalidad
 
-* [ ] Técnicas o mecánicas novedosas.
+* [x] Técnicas o mecánicas novedosas.
 
 ### Adecuación al usuario
 
-* [ ] Considera nivel inicial del alumno.
+* [x] Considera nivel inicial del alumno.
 * [ ] Registra y adapta progreso.
 
 ### Solidez didáctica
 
-* [ ] Actividades basadas en principios pedagógicos.
-* [ ] Accesible para distintos tipos de usuarios.
+* [x] Actividades basadas en principios pedagógicos.
+* [x] Accesible para distintos tipos de usuarios.
 
 ### Documentación
 
@@ -97,7 +97,7 @@ Seleccione el tipo o combinación aplicada al proyecto:
 
 ### Esfuerzo cognitivo
 
-* [ ] Aprendizajes significativos y transferibles.
+* [x] Aprendizajes significativos y transferibles.
 
 ---
 
@@ -114,36 +114,34 @@ Seleccione el tipo o combinación aplicada al proyecto:
 
 ### 🔷 Etapa 1 — Definición
 
-* [ ] Nombre descriptivo de la app.
-* [ ] Logotipo.
-* [ ] Público objetivo.
-* [ ] Asignatura y tema(s).
-* [ ] Tipo(s) de software educativo.
-* [ ] Actividades justificadas pedagógicamente.
+* [x] Nombre descriptivo de la app.
+* [x] Logotipo.
+* [x] Público objetivo.
+* [x] Asignatura y tema(s).
+* [x] Tipo(s) de software educativo.
+* [x] Actividades justificadas pedagógicamente.
 
 ### 🔷 Etapa 2 — Recursos, Contenidos y Navegación
 
-* [ ] Diseño de pantallas/layouts.
-* [ ] Diseño de recursos visuales y sonoros.
-* [ ] Redacción de textos y contenidos.
-* [ ] Mapa de navegación.
+* [x] Diseño de pantallas/layouts.
+* [x] Diseño de recursos visuales y sonoros.
+* [x] Redacción de textos y contenidos.
+* [x] Mapa de navegación.
 
 ### 🔷 Etapa 3 — Desarrollo
 
-* [ ] Diferentes layouts correctamente utilizados.
-* [ ] Uso correcto de controles.
-* [ ] Creación de controles personalizados.
-* [ ] (Opcional) Uso de widgets.
+* [x] Diferentes layouts correctamente utilizados.
+* [x] Uso correcto de controles.
+* [x] Creación de controles personalizados.
+* [x] (Opcional) Uso de widgets.
 * [ ] **Uso obligatorio de gráficos en Android.**
 * [ ] Uso de sensores para interacción.
 * [ ] Guardado de progreso en almacenamiento local.
-* [ ] (Si aplica) Implementación de servidor para multijugador.
+* **NO APLICA** (Si aplica) Implementación de servidor para multijugador.
 
 ---
 
 ## 🎯 8. Objetivo del Proyecto
 
-Seleccione uno:
-
-* [ ] Aplicación educativa Android.
+* [x] Aplicación educativa Android.
 * [ ] Juego de mesa digitalizado individual/multijugador.

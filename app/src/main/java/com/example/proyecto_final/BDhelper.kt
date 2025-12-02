@@ -2,9 +2,9 @@ package com.example.proyecto_final
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 class BDhelper(
     context: Context
@@ -34,7 +34,8 @@ class BDhelper(
                 tema_id TEXT NOT NULL,
                 titulo TEXT NOT NULL,
                 subtitulo TEXT,
-                imagen INTEGER
+                imagen INTEGER,
+                completada INTEGER DEFAULT 0
             );
         """.trimIndent())
 
@@ -262,6 +263,7 @@ class BDhelper(
                 put("titulo", l[1] as String)
                 put("subtitulo", l[2] as String)
                 put("imagen", l[3] as Int)
+                put("completada", 0)
             }
             leccionIds.add(db.insert("Lecciones", null, cv))
         }
@@ -324,6 +326,46 @@ class BDhelper(
             opcionIdsPorLeccion[leccion] = ids
         }
     }
+    // *** NUEVA FUNCIÓN: ACTUALIZAR PROGRESO INDIVIDUAL ***
+    fun updateLeccionCompletada(db: SQLiteDatabase, idLeccion: Int) {
+        val values = ContentValues().apply {
+            put("completada", 1) // Marcar como completada
+        }
+
+        val selection = "id = ?"
+        val selectionArgs = arrayOf(idLeccion.toString())
+
+        val count = db.update(
+            "Lecciones",
+            values,
+            selection,
+            selectionArgs
+        )
+        Log.d("BDHelper", "Lección $idLeccion actualizada. Filas afectadas: $count")
+    }
+    //progreso global
+    fun getGlobalProgressStats(db: SQLiteDatabase): Pair<Int, Int> {
+        var completedCount = 0
+        var totalCount = 0
+
+        // Consulta para contar el total de lecciones
+        val totalCursor = db.rawQuery("SELECT COUNT(*) FROM Lecciones", null)
+        if (totalCursor.moveToFirst()) {
+            totalCount = totalCursor.getInt(0)
+        }
+        totalCursor.close()
+
+        // Consulta para contar las lecciones marcadas como completadas
+        val completedCursor = db.rawQuery("SELECT COUNT(*) FROM Lecciones WHERE completada = 1", null)
+        if (completedCursor.moveToFirst()) {
+            completedCount = completedCursor.getInt(0)
+        }
+        completedCursor.close()
+
+        return Pair(completedCount, totalCount)
+    }
+
+
 
     private fun generatePhrasesLeccion1_1(db: SQLiteDatabase){
         val leccionId = leccionIds[0] // Primera lección
@@ -854,19 +896,12 @@ class BDhelper(
         cursor.close()
         return frasesList
     }
+
     fun getLecciones(db: SQLiteDatabase): List<Leccion> {
         val lecciones = mutableListOf<Leccion>()
 
-        // verifica con println si lecciones existe como tabla en la db
-//        var leccioness = db.rawQuery("SELECT * FROM Lecciones", null)
-//        println("Lecciones: $leccioness")
-//
-//        val cursor = db.rawQuery(
-//            "SELECT id, tema_id, titulo, subtitulo, imagen FROM Lecciones",
-//            null
-//        )
         val cursor = db.rawQuery(
-            "SELECT id, tema_id, titulo, subtitulo, imagen FROM Lecciones",
+            "SELECT id, tema_id, titulo, subtitulo, imagen, completada FROM Lecciones",
             null
         )
 
@@ -876,14 +911,17 @@ class BDhelper(
                 val nombre = cursor.getString(cursor.getColumnIndexOrThrow("titulo"))
                 val descripcion = cursor.getString(cursor.getColumnIndexOrThrow("subtitulo"))
                 val imagen = cursor.getInt(cursor.getColumnIndexOrThrow("imagen"))
+                // LECTURA DEL ESTADO DE PROGRESO
+                val completada = cursor.getInt(cursor.getColumnIndexOrThrow("completada"))
 
-                lecciones.add(Leccion(id, nombre, descripcion,imagen))
+                lecciones.add(Leccion(id, nombre, descripcion, imagen, completada))
             } while (cursor.moveToNext())
         }
 
         cursor.close()
         return lecciones
     }
+
     fun getLeccion(db: SQLiteDatabase, id: Int): Leccion {
         val cursor = db.rawQuery("SELECT * FROM Lecciones WHERE id = ?", arrayOf(id.toString()))
 
@@ -892,9 +930,11 @@ class BDhelper(
             val nombre = cursor.getString(cursor.getColumnIndexOrThrow("titulo"))
             val descripcion = cursor.getString(cursor.getColumnIndexOrThrow("subtitulo"))
             val imagen = cursor.getInt(cursor.getColumnIndexOrThrow("imagen"))
+            // LECTURA DEL ESTADO DE PROGRESO
+            val completada = cursor.getInt(cursor.getColumnIndexOrThrow("completada"))
 
             cursor.close()
-            return Leccion(id, nombre, descripcion, imagen)
+            return Leccion(id, nombre, descripcion, imagen, completada)
         } else {
             throw Exception("No se encontró la lección con ID $id")
         }

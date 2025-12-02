@@ -9,23 +9,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ScrollView
+import android.widget.ProgressBar // Importar ProgressBar para el progreso global
 import android.widget.TextView
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
+import android.util.Log
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [LessonsFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragmento que muestra la lista de lecciones y el progreso del usuario.
  */
 class LessonsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -44,6 +40,33 @@ class LessonsFragment : Fragment() {
         // Inflate the layout for this fragment
         var view =  inflater.inflate(R.layout.fragment_lessons, container, false)
 
+        var dbHelper = BDhelper(requireContext())
+        var db = dbHelper.readableDatabase
+
+
+
+        // Referencia a las vistas de PROGRESO GLOBAL
+        val progressBar = view.findViewById<ProgressBar>(R.id.progress_bar_global)
+        val progressText = view.findViewById<TextView>(R.id.progress_text_global)
+
+        // Obtener estadísticas de la DB: (completadas, total)
+        val (completedCount, totalCount) = dbHelper.getGlobalProgressStats(db)
+
+        if (totalCount > 0) {
+            val progressPercent = (completedCount.toFloat() / totalCount.toFloat()) * 100
+            val percentInt = progressPercent.toInt()
+
+            // Asignar progreso
+            progressBar.progress = percentInt
+            progressText.text = "$completedCount/$totalCount Lecciones ($percentInt%)"
+        } else {
+            // Caso de no haber lecciones
+            progressBar.progress = 0
+            progressText.text = "¡Añade tu primera lección!"
+        }
+
+
+
         val lista_views = listOf<View>(
             view.findViewById(R.id.leccion1_1),
             view.findViewById(R.id.leccion1_2),
@@ -59,17 +82,33 @@ class LessonsFragment : Fragment() {
             view.findViewById(R.id.leccion6_2)
         )
 
-        var dbHelper = BDhelper(requireContext())
-        var db = dbHelper.readableDatabase
-
+        // Obtener las lecciones con el estado de progreso
         var lecciones = dbHelper.getLecciones(db)
+        db.close() // Cerramos la conexión después de todas las lecturas
 
+        // ID del ImageView que actuará como marca de completado
+        val CHECKMARK_ICON_ID = R.id.checkmark_icon
 
         lecciones.forEachIndexed { index, leccion ->
-            lista_views[index].findViewById<TextView>(R.id.lesson_title).text = leccion.nombre
-            lista_views[index].findViewById<TextView>(R.id.lesson_subtitle).text = leccion.descripcion
-            lista_views[index].findViewById<ImageView>(R.id.lesson_image).setImageResource(leccion.imagen)
-            lista_views[index].setOnClickListener {
+            val lessonView = lista_views[index]
+
+            // Llenado de datos (Existente)
+            lessonView.findViewById<TextView>(R.id.lesson_title).text = leccion.nombre
+            lessonView.findViewById<TextView>(R.id.lesson_subtitle).text = leccion.descripcion
+            lessonView.findViewById<ImageView>(R.id.lesson_image).setImageResource(leccion.imagen)
+
+         //proceso individual
+            val checkmarkIcon = lessonView.findViewById<ImageView>(CHECKMARK_ICON_ID)
+
+            // Si leccion.completada es 1 (TRUE), mostramos el icono
+            if (leccion.completada == 1) {
+                checkmarkIcon.visibility = View.VISIBLE
+            } else {
+                checkmarkIcon.visibility = View.GONE
+            }
+            // **********************************************
+
+            lessonView.setOnClickListener {
                 val bundle = Bundle()
                 // pasar titulo de la leccion
                 bundle.putString("id_leccion",leccion.id.toString())
@@ -82,11 +121,9 @@ class LessonsFragment : Fragment() {
                     .commit()
             }
         }
-
-
-
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -124,7 +161,6 @@ class LessonsFragment : Fragment() {
 
             override fun onTypefaceRequestFailed(reason: Int) {
                 // Opcional: Manejar el error si la fuente no se puede descargar.
-                // No es necesario hacer nada aquí si quieres que se use la fuente por defecto.
             }
         }
 

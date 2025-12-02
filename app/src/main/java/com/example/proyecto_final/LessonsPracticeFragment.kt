@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import org.w3c.dom.Text
+import android.util.Log // Asegúrate de importar Log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +25,10 @@ class LessonsPracticeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    // CLAVE: Variable para almacenar el ID de la lección actual
+    private var idLeccionActual: Int? = null
+
     lateinit var frase_actual: Frase
     lateinit var frases: MutableList<Frase>
     private var index: Int = 0
@@ -51,33 +55,43 @@ class LessonsPracticeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_lessons_practice, container, false)
-//      var imagen = view.findViewById<ImageView>(R.id.imagen)
         frase = view.findViewById<TextView>(R.id.frase)
         opcion1 = view.findViewById<Button>(R.id.opcion1)
         opcion2 = view.findViewById<Button>(R.id.opcion2)
         opcion3 = view.findViewById<Button>(R.id.opcion3)
         opcion4 = view.findViewById<Button>(R.id.opcion4)
+
         var dbHelper = BDhelper(requireContext())
         var db = dbHelper.readableDatabase
 
-        // obtener leccion_id de la base de datos
-        var leccion_id = arguments?.getString("id_leccion")
-        frases = dbHelper.getFrasesByLeccion(db,leccion_id!!.toInt())
-        frases.shuffle()
-        frase.text = frases[0].texto
-        opcion1.text = frases[0].opciones[0]
-        opcion2.text = frases[0].opciones[1]
-        opcion3.text = frases[0].opciones[2]
-        opcion4.text = frases[0].opciones[3]
-        opcion1.setOnClickListener { handleClick(opcion1) }
-        opcion2.setOnClickListener { handleClick(opcion2) }
-        opcion3.setOnClickListener { handleClick(opcion3) }
-        opcion4.setOnClickListener { handleClick(opcion4) }
-    //   var leccion = dbHelper.getLeccion(db,leccion_id!!.toInt())
-    //   imagen.setImageResource(leccion.imagen)
-    //   imagen.scaleType = ImageView.ScaleType.FIT_XY
+        // obtener leccion_id de la base de datos y ALMACENARLO
+        var leccion_id_str = arguments?.getString("id_leccion")
+        idLeccionActual = leccion_id_str?.toIntOrNull()
+
+        // Cargar frases (usando el id de la lección)
+        if (idLeccionActual != null) {
+            frases = dbHelper.getFrasesByLeccion(db, idLeccionActual!!)
+            frases.shuffle()
+
+            // Inicialización de la UI con la primera frase
+            frase.text = frases[0].texto
+            opcion1.text = frases[0].opciones[0]
+            opcion2.text = frases[0].opciones[1]
+            opcion3.text = frases[0].opciones[2]
+            opcion4.text = frases[0].opciones[3]
+
+            opcion1.setOnClickListener { handleClick(opcion1) }
+            opcion2.setOnClickListener { handleClick(opcion2) }
+            opcion3.setOnClickListener { handleClick(opcion3) }
+            opcion4.setOnClickListener { handleClick(opcion4) }
+        }
+
+        // Cierra la DB de lectura
+        db.close()
+
         return view
     }
+
     fun isCorrect(text: String) : Boolean{
         if(text==frases[index].correcta){
             correctas++
@@ -87,13 +101,15 @@ class LessonsPracticeFragment : Fragment() {
             return false
         }
     }
+
     private fun handleClick(btn: Button) {
         val esCorrecta = isCorrect(btn.text.toString())
         btn.setBackgroundColor(
-            ContextCompat.getColor(context,
+            ContextCompat.getColor(requireContext(),
                 if (esCorrecta) R.color.colorCorrect else R.color.colorError
             )
         )
+
         btn.animate()
             .scaleX(1.15f)
             .scaleY(1.15f)
@@ -106,17 +122,34 @@ class LessonsPracticeFragment : Fragment() {
                     .start()
             }
             .start()
+
         btn.postDelayed({
-            if(index==frases.size - 1){
-                val bundle = Bundle()
-                val fragment = LessonsFragment()
-                fragment.arguments = bundle
+            if(index == frases.size - 1){
+
+                // Condición de éxito
+                val fueExitosa = incorrectas == 0
+
+                if (fueExitosa && idLeccionActual != null) {
+                    // Si se completó con éxito, marca el estado binario en la DB
+                    val dbHelper = BDhelper(requireContext())
+                    val db = dbHelper.writableDatabase
+                    dbHelper.updateLeccionCompletada(db, idLeccionActual!!)
+                    db.close()
+                }
+
+
+                // Crear la instancia del fragmento Gratification, pasando los resultados
+                val resultFragment = Gratification.newInstance(correctas, frases.size)
+
+                // Navegar
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment)
+                    .replace(R.id.frame_container, resultFragment)
                     .addToBackStack(null)
                     .commit()
+
                 return@postDelayed
             }else {
+                // Lógica para avanzar a la siguiente pregunta
                 index++
                 println(index)
                 frase.text = frases[index].texto
@@ -124,7 +157,7 @@ class LessonsPracticeFragment : Fragment() {
                 opcion2.text = frases[index].opciones[1]
                 opcion3.text = frases[index].opciones[2]
                 opcion4.text = frases[index].opciones[3]
-                btn.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                btn.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                 btn.animate()
                     .scaleX(1f)
                     .scaleY(1f)
@@ -133,7 +166,6 @@ class LessonsPracticeFragment : Fragment() {
                     .start()
             }
         }, 500)
-
     }
 
 

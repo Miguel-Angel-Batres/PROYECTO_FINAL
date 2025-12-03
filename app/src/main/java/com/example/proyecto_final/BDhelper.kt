@@ -66,6 +66,13 @@ class BDhelper(
                 FOREIGN KEY (opcion_d_id) REFERENCES Opciones(id)
             );
         """.trimIndent())
+        p0.execSQL("""
+            CREATE TABLE Logros (
+                reward_id INTEGER PRIMARY KEY,
+                is_unlocked INTEGER DEFAULT 0,
+                xp_awarded INTEGER DEFAULT 0
+            );
+        """.trimIndent())
         generatePalabras(p0)
         generateLessons(p0)
         generateOptions(p0)
@@ -326,7 +333,7 @@ class BDhelper(
             opcionIdsPorLeccion[leccion] = ids
         }
     }
-    // *** NUEVA FUNCIÓN: ACTUALIZAR PROGRESO INDIVIDUAL ***
+    //
     fun updateLeccionCompletada(db: SQLiteDatabase, idLeccion: Int) {
         val values = ContentValues().apply {
             put("completada", 1) // Marcar como completada
@@ -364,8 +371,69 @@ class BDhelper(
 
         return Pair(completedCount, totalCount)
     }
+    fun isSectionComplete(db: SQLiteDatabase, temaId: String): Boolean {
+        // Consulta para contar las lecciones del tema que NO están completadas (completada = 0)
+        val query = "SELECT COUNT(id) FROM Lecciones WHERE tema_id = ? AND completada = 0"
+
+        val cursor = db.rawQuery(query, arrayOf(temaId))
+        var incompleteCount = 0
+
+        if (cursor.moveToFirst()) {
+            incompleteCount = cursor.getInt(0)
+        }
+        cursor.close()
+
+        // Si la cuenta de lecciones incompletas es 0, toda la sección está completa.
+        return incompleteCount == 0
+    }
 
 
+    // El mapeo de secciones a sus claves cortas de la DB (tema_id)
+    private val sectionTopicMap = mapOf(
+        "Verbos y Tiempos" to "verbs_tenses",
+        "Nouns, Articles and Adjectives" to "nouns_articles",
+        "Pronouns and Possessives" to "pronouns_possessives",
+        "Prepositions" to "prepositions",
+        "Compound Sentences and Connectors" to "compound_sentences",
+        "Questions and Negations" to "questions_negations"
+    )
+
+
+    /**
+     * Genera la lista estática de recompensas con las condiciones definidas.
+     * El estado real de 'isUnlocked' se verificará en LessonsFragment.
+     */
+    fun getRewardsList(): List<Reward> {
+        return listOf(
+            Reward(1, "Iniciador", "Completa tu primera lección con 80%+.", 50, "CompletedLessonCount:1"),
+
+            Reward(2, "Maestro Verbal", "Completa las lecciones de la sección 'Verbos y Tiempos'.", 150, "CompletedSection:verbs_tenses"),
+            Reward(3, "Arquitecto de Palabras", "Completa la sección 'Nouns, Articles and Adjectives'.", 150, "CompletedSection:nouns_articles"),
+            Reward(4, "Identidad Total", "Completa la sección 'Pronombres y Posesivos'.", 100, "CompletedSection:pronouns_possessives"),
+            Reward(5, "Conector Lógico", "Completa la sección 'Compound Sentences and Connectors'.", 100, "CompletedSection:compound_sentences"),
+            Reward(6, "Navegante Espacial", "Completa la sección 'Preposiciones'.", 80, "CompletedSection:prepositions"),
+            Reward(7, "Cazador de Preguntas", "Completa la sección 'Questions and Negations'.", 120, "CompletedSection:questions_negations"),
+
+            Reward(8, "Mente Maestra (100%)", "Obtén un puntaje perfecto (100%) en cualquier lección.", 200, "PerfectScore:1"),
+            Reward(9, "El Gran Gramático", "Completa TODAS las secciones principales.", 300, "CompletedAllSections:True")
+        ).map { reward ->
+            // Inicializa todos los logros como BLOQUEADOS para que la lógica de verificación los actualice.
+            reward.apply { isUnlocked = false }
+        }
+    }
+    fun getAllUniqueTemaIds(db: SQLiteDatabase): List<String> {
+        val temaIds = mutableListOf<String>()
+        // Consulta SQL para obtener solo los valores distintos de la columna tema_id
+        val cursor = db.rawQuery("SELECT DISTINCT tema_id FROM Lecciones", null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                temaIds.add(cursor.getString(0))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return temaIds
+    }
 
     private fun generatePhrasesLeccion1_1(db: SQLiteDatabase){
         val leccionId = leccionIds[0] // Primera lección

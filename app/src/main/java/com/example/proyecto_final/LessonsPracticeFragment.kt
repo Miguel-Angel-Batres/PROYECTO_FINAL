@@ -128,7 +128,12 @@ class LessonsPracticeFragment : Fragment() {
 
                 // Condición de éxito
                 val fueExitosa = incorrectas == 0
+// Definir la recompensa (ejemplo: 10 puntos por lección)
+                    val puntosGanados = 10
 
+
+// 2. Crear la instancia del fragmento Gratification, pasando resultados Y PUNTOS
+                val resultFragment = Gratification.newInstance(correctas, frases.size)
                 if (fueExitosa && idLeccionActual != null) {
                     // Si se completó con éxito, marca el estado binario en la DB
                     val dbHelper = BDhelper(requireContext())
@@ -137,9 +142,6 @@ class LessonsPracticeFragment : Fragment() {
                     db.close()
                 }
 
-
-                // Crear la instancia del fragmento Gratification, pasando los resultados
-                val resultFragment = Gratification.newInstance(correctas, frases.size)
 
                 // Navegar
                 parentFragmentManager.beginTransaction()

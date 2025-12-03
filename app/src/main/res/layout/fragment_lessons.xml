@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="10dp"
-                android:progressTint="@color/colorPrimary"
+                android:progressTint="@color/colorSurface"
                 android:progressBackgroundTint="#CCCCCC"
                 android:max="100" />
 
@@ -94,6 +94,67 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/rewards_header_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="4dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:id="@+id/rewards_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tus Logros Desbloqueados"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/ultra"
+                    android:textColor="@color/colorTextPrimary"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/rewards_count_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/rewards_toggle_icon"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:text="0/0"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorTextPrimary"
+                    android:fontFamily="@font/ultra"/>
+
+                <ImageView
+                    android:id="@+id/rewards_toggle_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/outline_arrow_downward_24"
+                    android:contentDescription="Expandir Logros"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rewards_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"  android:visibility="gone"
+            android:nestedScrollingEnabled="false" android:overScrollMode="never" android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_reward" />
         <TextView
             android:id="@+id/Verbs_and_tenses"
             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.proyecto_final
 
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
@@ -9,11 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar // Importar ProgressBar para el progreso global
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.RelativeLayout // Importación necesaria para RelativeLayout
 import android.widget.TextView
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
+import com.google.android.material.card.MaterialCardView
+import androidx.core.content.ContextCompat // Importación necesaria para obtener colores
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -24,6 +31,16 @@ private const val ARG_PARAM2 = "param2"
 class LessonsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+
+    // Mapeo de tema_id de la DB a la clave de la condición del Logro
+    private val sectionMap = mapOf(
+        "verbs_tenses" to "Verbos y Tiempos",
+        "nouns_articles" to "Nouns, Articles and Adjectives",
+        "pronouns_possessives" to "Pronouns and Possessives",
+        "prepositions" to "Prepositions",
+        "compound_sentences" to "Compound Sentences and Connectors",
+        "questions_negations" to "Questions and Negations"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,28 +60,67 @@ class LessonsFragment : Fragment() {
         var dbHelper = BDhelper(requireContext())
         var db = dbHelper.readableDatabase
 
-
-
-        // Referencia a las vistas de PROGRESO GLOBAL
+        //progreso global
         val progressBar = view.findViewById<ProgressBar>(R.id.progress_bar_global)
         val progressText = view.findViewById<TextView>(R.id.progress_text_global)
 
-        // Obtener estadísticas de la DB: (completadas, total)
         val (completedCount, totalCount) = dbHelper.getGlobalProgressStats(db)
 
         if (totalCount > 0) {
             val progressPercent = (completedCount.toFloat() / totalCount.toFloat()) * 100
             val percentInt = progressPercent.toInt()
 
-            // Asignar progreso
             progressBar.progress = percentInt
             progressText.text = "$completedCount/$totalCount Lecciones ($percentInt%)"
         } else {
-            // Caso de no haber lecciones
             progressBar.progress = 0
             progressText.text = "¡Añade tu primera lección!"
         }
 
+        //recompensas
+        val rewardsRecyclerView = view.findViewById<RecyclerView>(R.id.rewards_recycler_view)
+
+        // Inicialización de las vistas del menú desplegable
+        val rewardsHeader = view.findViewById<MaterialCardView>(R.id.rewards_header_card)
+        val toggleIcon = view.findViewById<ImageView>(R.id.rewards_toggle_icon)
+        val rewardsCountText = view.findViewById<TextView>(R.id.rewards_count_text) // Referencia al nuevo TextView
+        val rewardsHeaderLayout = view.findViewById<RelativeLayout>(R.id.rewards_header_layout) // Referencia al layout para cambiar el color
+
+        // Cargar la lista estática de logros desde BDHelper
+        val staticRewardsList = dbHelper.getRewardsList().toMutableList()
+
+        //Verifica el estado real de cada logro
+        val checkedRewards = checkRewardStates(dbHelper, db, staticRewardsList, totalCount)
+
+        // contador y desbloqueo
+        val unlockedCount = checkedRewards.count { it.isUnlocked }
+        val totalRewards = checkedRewards.size
+
+        // Actualiza el texto del contador
+        rewardsCountText.text = "$unlockedCount/$totalRewards"
+
+        // Si hay logros desbloqueados, cambia el fondo del encabezado
+        if (unlockedCount > 0) {
+            rewardsHeaderLayout.setBackgroundResource(R.color.colorSurface) // Usando colorSurface para destacar
+        } else {
+            // Mantener el color base si no hay logros
+            rewardsHeaderLayout.setBackgroundResource(R.color.colorPrimary)
+        }
+        rewardsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        rewardsRecyclerView.adapter = RewardAdapter(checkedRewards)
+//menu
+        rewardsHeader.setOnClickListener {
+            if (rewardsRecyclerView.visibility == View.GONE) {
+                // EXPANDIR
+                rewardsRecyclerView.visibility = View.VISIBLE
+                // Rota la flecha 180 grados (apuntando hacia arriba)
+                toggleIcon.animate().rotation(180f).setDuration(300).start()
+            } else {
+                // COLAPSAR
+                rewardsRecyclerView.visibility = View.GONE
+                toggleIcon.animate().rotation(0f).setDuration(300).start()
+            }
+        }
 
 
         val lista_views = listOf<View>(
@@ -82,11 +138,9 @@ class LessonsFragment : Fragment() {
             view.findViewById(R.id.leccion6_2)
         )
 
-        // Obtener las lecciones con el estado de progreso
         var lecciones = dbHelper.getLecciones(db)
         db.close() // Cerramos la conexión después de todas las lecturas
 
-        // ID del ImageView que actuará como marca de completado
         val CHECKMARK_ICON_ID = R.id.checkmark_icon
 
         lecciones.forEachIndexed { index, leccion ->
@@ -97,10 +151,9 @@ class LessonsFragment : Fragment() {
             lessonView.findViewById<TextView>(R.id.lesson_subtitle).text = leccion.descripcion
             lessonView.findViewById<ImageView>(R.id.lesson_image).setImageResource(leccion.imagen)
 
-         //proceso individual
+            // *** VISUALIZACIÓN DEL PROGRESO INDIVIDUAL ***
             val checkmarkIcon = lessonView.findViewById<ImageView>(CHECKMARK_ICON_ID)
 
-            // Si leccion.completada es 1 (TRUE), mostramos el icono
             if (leccion.completada == 1) {
                 checkmarkIcon.visibility = View.VISIBLE
             } else {
@@ -110,9 +163,7 @@ class LessonsFragment : Fragment() {
 
             lessonView.setOnClickListener {
                 val bundle = Bundle()
-                // pasar titulo de la leccion
                 bundle.putString("id_leccion",leccion.id.toString())
-                // comenzar fragmento de lecciones
                 val fragment = LessonsPracticeFragment()
                 fragment.arguments = bundle
                 parentFragmentManager.beginTransaction()
@@ -124,9 +175,47 @@ class LessonsFragment : Fragment() {
         return view
     }
 
+    /**
+     * Función que verifica el estado de desbloqueo de cada logro.
+     * Nota: Asume que las funciones de BDHelper (isSectionComplete) existen.
+     */
+    private fun checkRewardStates(dbHelper: BDhelper, db: SQLiteDatabase, rewards: MutableList<Reward>, totalLessons: Int): List<Reward> {
+        val completedLessonsCount = dbHelper.getGlobalProgressStats(db).first
+        val allSections = sectionMap.keys
+
+        rewards.forEach { reward ->
+            val parts = reward.condition.split(":")
+            val conditionKey = parts.getOrNull(0)
+            val conditionValue = parts.getOrNull(1)
+
+            val isAchieved = when (conditionKey) {
+
+                "CompletedLessonCount" -> completedLessonsCount >= conditionValue?.toIntOrNull() ?: Int.MAX_VALUE
+
+                "CompletedSection" -> {
+                    // Usa conditionValue (el tema_id de la DB) directamente para verificar el estado de la sección
+                    conditionValue != null && dbHelper.isSectionComplete(db, conditionValue)
+                }
+
+                "CompletedAllSections" -> {
+                    // Verifica si TODAS las secciones están completas
+                    val allUniqueSections = dbHelper.getAllUniqueTemaIds(db) // Requiere getAllUniqueTemaIds
+                    allUniqueSections.all { temaId -> dbHelper.isSectionComplete(db, temaId) }
+                }
+
+                // Aquí irían otras condiciones
+                else -> false
+            }
+
+            if (isAchieved) {
+                reward.isUnlocked = true
+            }
+        }
+        return rewards
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // Definimos la solicitud de la fuente una sola vez
         val request = FontRequest(
@@ -138,12 +227,9 @@ class LessonsFragment : Fragment() {
 
         // --- FUNCIÓN RECURSIVA PARA APLICAR LA FUENTE ---
         fun applyFontToAllTextViews(v: View, typeface: Typeface) {
-            // Si la vista actual es un TextView, le aplicamos la fuente.
             if (v is TextView) {
                 v.typeface = typeface
             }
-            // Si la vista actual es un contenedor de vistas (como LinearLayout, FrameLayout, etc.),
-            // recorremos sus hijos y llamamos a esta misma función para cada uno.
             else if (v is ViewGroup) {
                 for (i in 0 until v.childCount) {
                     applyFontToAllTextViews(v.getChildAt(i), typeface)
@@ -154,8 +240,6 @@ class LessonsFragment : Fragment() {
         // Creamos un callback para manejar la respuesta
         val callback = object : FontsContractCompat.FontRequestCallback() {
             override fun onTypefaceRetrieved(typeface: Typeface) {
-                // Cuando la fuente se obtiene correctamente, iniciamos el recorrido
-                // desde la vista raíz del fragmento.
                 applyFontToAllTextViews(view, typeface)
             }
 
@@ -176,12 +260,7 @@ class LessonsFragment : Fragment() {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LessonsFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             LessonsFragment().apply {

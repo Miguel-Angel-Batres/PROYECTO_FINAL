@@ -62,7 +62,13 @@
                 android:fontFamily="@font/ultra"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"/>
-
+                <TextView
+                    android:id="@+id/rewards_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="32dp"/>
                 <TextView
                     android:id="@+id/result_status_message"
                     android:layout_width="wrap_content"

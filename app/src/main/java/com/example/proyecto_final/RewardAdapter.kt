@@ -1,4 +1,4 @@
-// Archivo: RewardAdapter.kt
+
 package com.example.proyecto_final
 
 import android.view.LayoutInflater
@@ -35,7 +35,7 @@ class RewardAdapter(private val rewards: List<Reward>) :
         holder.description.text = reward.description
         holder.points.text = "+${reward.points} XP"
 
-        // Lógica de visualización para Desbloqueado vs. Bloqueado
+        // Lógica de visualización para Desbloqueado y Bloqueado
         if (reward.isUnlocked) {
             holder.title.setTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary))
             holder.points.setTextColor(ContextCompat.getColor(context, R.color.colorCorrect))
@@ -44,8 +44,8 @@ class RewardAdapter(private val rewards: List<Reward>) :
         } else {
             holder.title.setTextColor(ContextCompat.getColor(context, R.color.colorSecondary))
             holder.points.setTextColor(ContextCompat.getColor(context, R.color.colorSecondary))
-            holder.icon.setImageResource(R.drawable.ic_lock) // Icono de candado (DEBES CREARLO)
-            holder.container.alpha = 0.5f // Atenuado
+            holder.icon.setImageResource(R.drawable.ic_lock)
+            holder.container.alpha = 0.5f
         }
     }
 

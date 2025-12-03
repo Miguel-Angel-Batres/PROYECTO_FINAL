@@ -32,15 +32,6 @@ class LessonsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    // Mapeo de tema_id de la DB a la clave de la condición del Logro
-    private val sectionMap = mapOf(
-        "verbs_tenses" to "Verbos y Tiempos",
-        "nouns_articles" to "Nouns, Articles and Adjectives",
-        "pronouns_possessives" to "Pronouns and Possessives",
-        "prepositions" to "Prepositions",
-        "compound_sentences" to "Compound Sentences and Connectors",
-        "questions_negations" to "Questions and Negations"
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,53 +65,9 @@ class LessonsFragment : Fragment() {
             progressText.text = "$completedCount/$totalCount Lecciones ($percentInt%)"
         } else {
             progressBar.progress = 0
-            progressText.text = "¡Añade tu primera lección!"
         }
 
-        //recompensas
-        val rewardsRecyclerView = view.findViewById<RecyclerView>(R.id.rewards_recycler_view)
 
-        // Inicialización de las vistas del menú desplegable
-        val rewardsHeader = view.findViewById<MaterialCardView>(R.id.rewards_header_card)
-        val toggleIcon = view.findViewById<ImageView>(R.id.rewards_toggle_icon)
-        val rewardsCountText = view.findViewById<TextView>(R.id.rewards_count_text) // Referencia al nuevo TextView
-        val rewardsHeaderLayout = view.findViewById<RelativeLayout>(R.id.rewards_header_layout) // Referencia al layout para cambiar el color
-
-        // Cargar la lista estática de logros desde BDHelper
-        val staticRewardsList = dbHelper.getRewardsList().toMutableList()
-
-        //Verifica el estado real de cada logro
-        val checkedRewards = checkRewardStates(dbHelper, db, staticRewardsList, totalCount)
-
-        // contador y desbloqueo
-        val unlockedCount = checkedRewards.count { it.isUnlocked }
-        val totalRewards = checkedRewards.size
-
-        // Actualiza el texto del contador
-        rewardsCountText.text = "$unlockedCount/$totalRewards"
-
-        // Si hay logros desbloqueados, cambia el fondo del encabezado
-        if (unlockedCount > 0) {
-            rewardsHeaderLayout.setBackgroundResource(R.color.colorSurface) // Usando colorSurface para destacar
-        } else {
-            // Mantener el color base si no hay logros
-            rewardsHeaderLayout.setBackgroundResource(R.color.colorPrimary)
-        }
-        rewardsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        rewardsRecyclerView.adapter = RewardAdapter(checkedRewards)
-//menu
-        rewardsHeader.setOnClickListener {
-            if (rewardsRecyclerView.visibility == View.GONE) {
-                // EXPANDIR
-                rewardsRecyclerView.visibility = View.VISIBLE
-                // Rota la flecha 180 grados (apuntando hacia arriba)
-                toggleIcon.animate().rotation(180f).setDuration(300).start()
-            } else {
-                // COLAPSAR
-                rewardsRecyclerView.visibility = View.GONE
-                toggleIcon.animate().rotation(0f).setDuration(300).start()
-            }
-        }
 
 
         val lista_views = listOf<View>(
@@ -151,7 +98,7 @@ class LessonsFragment : Fragment() {
             lessonView.findViewById<TextView>(R.id.lesson_subtitle).text = leccion.descripcion
             lessonView.findViewById<ImageView>(R.id.lesson_image).setImageResource(leccion.imagen)
 
-            // *** VISUALIZACIÓN DEL PROGRESO INDIVIDUAL ***
+            // leccion individual
             val checkmarkIcon = lessonView.findViewById<ImageView>(CHECKMARK_ICON_ID)
 
             if (leccion.completada == 1) {
@@ -159,8 +106,6 @@ class LessonsFragment : Fragment() {
             } else {
                 checkmarkIcon.visibility = View.GONE
             }
-            // **********************************************
-
             lessonView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("id_leccion",leccion.id.toString())
@@ -179,40 +124,6 @@ class LessonsFragment : Fragment() {
      * Función que verifica el estado de desbloqueo de cada logro.
      * Nota: Asume que las funciones de BDHelper (isSectionComplete) existen.
      */
-    private fun checkRewardStates(dbHelper: BDhelper, db: SQLiteDatabase, rewards: MutableList<Reward>, totalLessons: Int): List<Reward> {
-        val completedLessonsCount = dbHelper.getGlobalProgressStats(db).first
-        val allSections = sectionMap.keys
-
-        rewards.forEach { reward ->
-            val parts = reward.condition.split(":")
-            val conditionKey = parts.getOrNull(0)
-            val conditionValue = parts.getOrNull(1)
-
-            val isAchieved = when (conditionKey) {
-
-                "CompletedLessonCount" -> completedLessonsCount >= conditionValue?.toIntOrNull() ?: Int.MAX_VALUE
-
-                "CompletedSection" -> {
-                    // Usa conditionValue (el tema_id de la DB) directamente para verificar el estado de la sección
-                    conditionValue != null && dbHelper.isSectionComplete(db, conditionValue)
-                }
-
-                "CompletedAllSections" -> {
-                    // Verifica si TODAS las secciones están completas
-                    val allUniqueSections = dbHelper.getAllUniqueTemaIds(db) // Requiere getAllUniqueTemaIds
-                    allUniqueSections.all { temaId -> dbHelper.isSectionComplete(db, temaId) }
-                }
-
-                // Aquí irían otras condiciones
-                else -> false
-            }
-
-            if (isAchieved) {
-                reward.isUnlocked = true
-            }
-        }
-        return rewards
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

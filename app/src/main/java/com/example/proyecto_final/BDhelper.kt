@@ -399,13 +399,9 @@ class BDhelper(
     )
 
 
-    /**
-     * Genera la lista estática de recompensas con las condiciones definidas.
-     * El estado real de 'isUnlocked' se verificará en LessonsFragment.
-     */
     fun getRewardsList(): List<Reward> {
         return listOf(
-            Reward(1, "Iniciador", "Completa tu primera lección con 80%+.", 50, "CompletedLessonCount:1"),
+            Reward(1, "Iniciador", "Completa tu primera lección.", 50, "CompletedLessonCount:1"),
 
             Reward(2, "Maestro Verbal", "Completa las lecciones de la sección 'Verbos y Tiempos'.", 150, "CompletedSection:verbs_tenses"),
             Reward(3, "Arquitecto de Palabras", "Completa la sección 'Nouns, Articles and Adjectives'.", 150, "CompletedSection:nouns_articles"),

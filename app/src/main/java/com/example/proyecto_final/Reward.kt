@@ -5,6 +5,6 @@ data class Reward(
     val title: String,
     val description: String,
     val points: Int, // Puntos de XP que da esta recompensa
-    val condition: String, // La condición para desbloquear (ej: "CompletedLessonId:1", "CompletedSection:Verbs")
+    val condition: String,
     var isUnlocked: Boolean = false // Estado si el usuario ya la obtuvo
 )

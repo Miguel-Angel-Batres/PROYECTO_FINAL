@@ -46,15 +46,11 @@ class Gratification : Fragment() {
         val continueButton = view.findViewById<Button>(R.id.result_button_continue)
         val scoreCard = view.findViewById<MaterialCardView>(R.id.score_card_view)
         val statusTextView = view.findViewById<TextView>(R.id.result_status_message)
-
-        // REFERENCIA CLAVE PARA LA ANIMACIÓN
         val rewardsIcon = view.findViewById<ImageView>(R.id.achievement_icon)
-        // Se elimina la referencia a rewardsTextView
 
         //  Obtener los argumentos
         val correctas = arguments?.getInt(ARG_CORRECTAS) ?: 0
         val total = arguments?.getInt(ARG_TOTAL) ?: 1
-        // Se elimina la lectura de puntosGanados
 
         //  Cálculo de porcentaje y mensaje de resultado
         val porcentaje = if (total > 0) (correctas.toFloat() / total.toFloat()) * 100 else 0f
@@ -64,7 +60,6 @@ class Gratification : Fragment() {
 
         val colorResource: Int
 
-        // 3. Lógica de Colores y Mensajes
         if (porcentaje >= 100) {
             colorResource = R.color.colorCorrect
             statusTextView.text = "¡Perfecto! Un 100% impecable. 🌟"
